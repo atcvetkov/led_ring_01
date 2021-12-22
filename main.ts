@@ -96,7 +96,7 @@ function effect_multiple () {
 }
 function effect_4 () {
     for (let index = 0; index <= 23; index++) {
-        ring.setBrightness(input.soundLevel() + 10)
+        ring.setBrightness(input.soundLevel() + 50)
         color_10_index = index
         color_11_index = color_10_index + 1
         color_12_index = color_10_index + 2
