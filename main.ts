@@ -29,17 +29,22 @@ function effect_1 () {
     }
 }
 function effect_2 () {
-    basic.showNumber(2)
-    ring.setBrightness(10)
-    while (true) {
+    ring.setBrightness(200)
+    while (effect_num == 1) {
         ring.showBarGraph(input.soundLevel(), 100)
         ring.show()
         basic.pause(5)
         ring.clear()
     }
 }
+input.onButtonPressed(Button.A, function () {
+    if (effect_num > 1) {
+        effect_num += -1
+        basic.showNumber(effect_num)
+    }
+})
 function effect_5 () {
-    ring.setBrightness(10)
+    ring.setBrightness(200)
     ring.setPixelColor(randint(0, 23), neopixel.colors(NeoPixelColors.Orange))
     ring.setPixelColor(randint(0, 23), neopixel.colors(NeoPixelColors.Purple))
     ring.setPixelColor(randint(0, 23), neopixel.colors(NeoPixelColors.Red))
@@ -83,6 +88,15 @@ function effect_3 () {
         ring.clear()
     }
 }
+input.onButtonPressed(Button.AB, function () {
+    effect_num = 0
+})
+input.onButtonPressed(Button.B, function () {
+    if (effect_num < 3) {
+        effect_num += 1
+        basic.showNumber(effect_num)
+    }
+})
 function effect_multiple () {
     for (let index = 0; index < 3; index++) {
         effect_7()
@@ -95,6 +109,7 @@ function effect_multiple () {
     }
 }
 function effect_4 () {
+    ring.setBrightness(200)
     for (let index = 0; index <= 23; index++) {
         ring.setBrightness(input.soundLevel() + 50)
         color_10_index = index
@@ -147,7 +162,19 @@ let one = 0
 let list: number[] = []
 let colors: number[] = []
 let ring: neopixel.Strip = null
+let effect_num = 0
+effect_num = 0
 ring = neopixel.create(DigitalPin.P1, 24, NeoPixelMode.RGB)
 basic.forever(function () {
-    effect_multiple()
+    if (effect_num == 0) {
+        basic.showIcon(IconNames.Heart)
+        ring.clear()
+        ring.show()
+    } else if (effect_num == 1) {
+        effect_2()
+    } else if (effect_num == 2) {
+        effect_5()
+    } else if (effect_num == 3) {
+        effect_4()
+    }
 })
